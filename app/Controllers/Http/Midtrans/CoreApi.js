@@ -1,7 +1,7 @@
 'use strict'
 
 const ApiRequestor = require("./ApiRequestor");
-const Config = require("./ConfigController")
+const Config = require("./Config")
 
 class CoreApi {
     static charge(payloads) {
