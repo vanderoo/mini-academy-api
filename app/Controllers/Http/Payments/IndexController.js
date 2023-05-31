@@ -7,8 +7,8 @@ const Order = use("App/Models/Order");
 
 class IndexController {
     async bankTransfer({request,response}){
-        let data;
         try {
+            let data;
             let body = request.body;
 
             let bankTransfer = new BankTransfer(body.items, body.customer);
@@ -43,12 +43,13 @@ class IndexController {
                     response.status(500).json({ status_code:500,error: 'Terjadi kesalahan saat menyimpan data pesanan' });
                   }
             }else{
-                response.status(500).json({status_code:500,error: 'Pesanan gagal dibuat'});
+                response.status(400).json({status_code:400,error: 'Pesanan gagal dibuat'});
             }
     
             //return result;
         } catch (error) {
-            console.log("Error: K")
+            console.log("Error: ",error)
+            response.status(500).send({message: "Koneksi ke database bermasalah", error: error.message})
         }
         
     }
