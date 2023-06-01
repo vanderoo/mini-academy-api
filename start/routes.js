@@ -18,17 +18,20 @@ const auth = require('../config/auth');
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-
-Route.post('/login', 'Auth/LoginController.login');
+Route.group(() => {
+  Route.post('/register', 'Auth/RegisterController.register');
+  Route.post('/login', 'Auth/LoginController.login');
+  Route.post('/logout', 'Auth/LoginController.logout');
+}).prefix("auth");
 
 Route.group(() => {
   Route.post("/charge", "Payments/IndexController.bankTransfer").middleware(['auth']);
-}).prefix("va");
+  Route.post("/notification/push", 'Midtrans/NotificationController.post');
+}).prefix("payment");
 
-Route.post("/notification/push", 'Midtrans/NotificationController.post')
 
 
-Route.post('/logout', 'Auth/LoginController.logout');
+
 
 
 
