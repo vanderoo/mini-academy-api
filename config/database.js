@@ -51,11 +51,11 @@ module.exports = {
   mysql: {
     client: 'mysql',
     connection: {
-      host: Env.get('DB_HOST', 'localhost'),
-      port: Env.get('DB_PORT', ''),
-      user: Env.get('DB_USER', 'root'),
-      password: Env.get('DB_PASSWORD', ''),
-      database: Env.get('DB_DATABASE', 'db_miniacademy')
+      host: Env.get('DB_HOST', 'minac.c5he2f1isuqn.ap-southeast-1.rds.amazonaws.com'),
+      port: Env.get('DB_PORT', '3306'),
+      user: Env.get('DB_USER', 'admin'),
+      password: Env.get('DB_PASSWORD', 'miniacademy7!'),
+      database: Env.get('DB_DATABASE', 'Mini_Academy')
     },
     debug: Env.get('DB_DEBUG', false)
   },
