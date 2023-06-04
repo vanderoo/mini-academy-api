@@ -29,6 +29,13 @@ Route.group(() => {
   Route.post("/notification/push", 'Midtrans/NotificationController.post');
 }).prefix("payment");
 
+Route.group(() => {
+  Route.get("/course", "Course/CourseController.courseIndex");
+  Route.get("/myCourse", "Course/CourseController.myCourseIndex");
+  Route.get("/waitingPayment", "Course/CourseController.waitingPaymentIndex");
+  Route.get("/notRegistered", "Course/CourseController.notRegisteredIndex");
+}).prefix('course/');
+
 
 
 

@@ -16,6 +16,9 @@ module.exports = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
+
+  origin: ['http://127.0.0.1:5500', 'https://mini-academyku.vercel.app'],
+
   origin: true,
 
   /*
