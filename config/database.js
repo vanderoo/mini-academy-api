@@ -55,7 +55,8 @@ module.exports = {
       port: Env.get('DB_PORT', '3306'),
       user: Env.get('DB_USER', 'admin'),
       password: Env.get('DB_PASSWORD', 'miniacademy7!'),
-      database: Env.get('DB_DATABASE', 'Mini_Academy')
+      database: Env.get('DB_DATABASE', 'Mini_Academy'),
+      requestTimeout: 60000
     },
     debug: Env.get('DB_DEBUG', false)
   },
