@@ -24,7 +24,7 @@ class RegisterController {
 
         const passwordHash = await Hash.make(password);
 
-        const result = await Database.raw('CALL registrasiP(?, ?, ?, ?, ?)', [nama, email, username, passwordHash, 'student']);
+        const result = await Database.raw('CALL registrasiP(?, ?, ?, ?)', [nama, email, username, passwordHash]);
         if(result[0].affectedRows === 0){
             return response.status(500).send({ message: 'Registrasi gagal' });
         }

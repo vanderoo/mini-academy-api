@@ -9,7 +9,6 @@ class CourseController {
     async courseIndex({ response }) {
         try {
             const courses = await Course.all();
-            response.header('Access-Control-Allow-Origin', 'https://mini-academyku.vercel.app');
             return response.json(courses);
         } catch (error) {
             console.error(error);
