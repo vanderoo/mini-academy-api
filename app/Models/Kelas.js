@@ -20,6 +20,9 @@ class Kelas extends Model {
     pengajar() {
         return this.belongsTo('App/Models/Pengajar', 'id_pengajar', 'id_pengajar');
     }
+    carts() {
+        return this.hasMany('App/Models/Cart', 'id_kelas', 'id_kelas');
+    }
 }
 
 module.exports = Kelas

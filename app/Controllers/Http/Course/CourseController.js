@@ -56,7 +56,7 @@ class CourseController {
                 .select('kelas.*')
                 .innerJoin('pendaftaran', 'kelas.id_kelas', 'pendaftaran.id_kelas')
                 .innerJoin('pembayaran', 'pendaftaran.id_pembayaran', 'pembayaran.id_pembayaran')
-                .where('pendaftaran.id_pelajar', 6)
+                .where('pendaftaran.id_pelajar', 4)
                 .where('pembayaran.status', 'SUCCESS')
                 .fetch();
             
