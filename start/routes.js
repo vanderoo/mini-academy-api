@@ -32,10 +32,14 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get("/course", "Course/CourseController.courseIndex");
+  Route.get("/rand", "Course/CourseController.randIndex");
   Route.get("/myCourse", "Course/CourseController.myCourseIndex");
   Route.get("/waitingPayment", "Course/CourseController.waitingPaymentIndex");
   Route.get("/notRegistered", "Course/CourseController.notRegisteredIndex");
-}).prefix('course/');
+  Route.get("/:id", "Course/CourseController.courseShow");
+  Route.get("/:id/silabus", "Course/SilabusController.index");
+  Route.get("/:id/tugas", "Course/TugasController.index");
+}).prefix('course');
 
 
 

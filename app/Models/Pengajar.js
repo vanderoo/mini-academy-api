@@ -3,23 +3,27 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Kelas extends Model {
-    static get table(){
-        return 'kelas';
+class Pengajar extends Model {
+    static get table() {
+        return 'pengajar';
     }
+
     static get primaryKey() {
-        return 'id_kelas';
+        return 'id_pengajar';
     }
+
     static get createdAtColumn() {
         return false;
     }
-    
+
     static get updatedAtColumn() {
         return false;
     }
-    pengajar() {
-        return this.belongsTo('App/Models/Pengajar', 'id_pengajar', 'id_pengajar');
+
+    courses() {
+        return this.hasMany('App/Models/Course', 'id_pengajar', 'id_pengajar');
     }
+
 }
 
-module.exports = Kelas
+module.exports = Pengajar
