@@ -42,7 +42,7 @@ class CartController {
         try {
             const id_kelas = params.id;
     
-            const id_pelajar = 6;
+            const id_pelajar = 4;
             const cart = new Cart();
             cart.id_kelas = id_kelas;
             cart.id_pelajar = id_pelajar; 
