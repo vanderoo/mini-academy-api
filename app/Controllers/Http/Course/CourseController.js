@@ -50,13 +50,13 @@ class CourseController {
         }
     }
 
-    async myCourseIndex({ response }) {
+    async myCourseIndex({auth, response }) {
         try {
             const courses = await Course.query()
                 .select('kelas.*')
                 .innerJoin('pendaftaran', 'kelas.id_kelas', 'pendaftaran.id_kelas')
                 .innerJoin('pembayaran', 'pendaftaran.id_pembayaran', 'pembayaran.id_pembayaran')
-                .where('pendaftaran.id_pelajar', 4)
+                .where('pendaftaran.id_pelajar', auth.user.id_pelajar)
                 .where('pembayaran.status', 'SUCCESS')
                 .fetch();
             
@@ -70,13 +70,13 @@ class CourseController {
             return response.status(500).json({ message: 'Server bermasalah' });
         }
     }
-    async waitingPaymentIndex({ response }) {
+    async waitingPaymentIndex({ auth, response }) {
         try {
             const courses = await Course.query()
                 .select('kelas.*')
                 .innerJoin('pendaftaran', 'kelas.id_kelas', 'pendaftaran.id_kelas')
                 .innerJoin('pembayaran', 'pendaftaran.id_pembayaran', 'pembayaran.id_pembayaran')
-                .where('pendaftaran.id_pelajar', 4)
+                .where('pendaftaran.id_pelajar', auth.user.id_pelajar)
                 .whereNot('pembayaran.status', 'SUCCESS')
                 .fetch();
 
@@ -86,10 +86,10 @@ class CourseController {
             return response.status(500).json({ message: 'Server bermasalah' });
         }
     }
-    async notRegisteredIndex({ response }) {
+    async notRegisteredIndex({ auth, response }) {
         try {
             const registeredCourses = await Pendaftaran.query()
-                .where('id_pelajar', 4)
+                .where('id_pelajar', auth.user.id_pelajar)
                 .pluck('id_kelas');
 
             const notRegisteredCourses = await Course.query()

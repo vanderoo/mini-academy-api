@@ -2,12 +2,12 @@
 const Cart = use("App/Models/Cart");
 
 class CartController {
-    async index({response}){
+    async index({auth, response}){
         try {
             const cart = await Cart.query()
             .with('kelas')
             .with('kelas.pengajar')
-            .where('id_pelajar', 4)
+            .where('id_pelajar', auth.user.id_pelajar)
             .fetch();
 
             if(!cart){
@@ -20,7 +20,7 @@ class CartController {
             return response.status(500).json({error: 'Server bermasalah'});
         }
     }
-    async delete({ params, response }) {
+    async delete({params, response }) {
         try {
           const cart = await Cart.find(params.id);
     
@@ -37,12 +37,12 @@ class CartController {
         }
     }
 
-    async addCart({params, response}){
+    async addCart({auth, params, response}){
         
         try {
             const id_kelas = params.id;
     
-            const id_pelajar = 4;
+            const id_pelajar = auth.user.id_pelajar;
             const cart = new Cart();
             cart.id_kelas = id_kelas;
             cart.id_pelajar = id_pelajar; 
