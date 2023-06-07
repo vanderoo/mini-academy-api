@@ -14,7 +14,12 @@ class IndexController {
         
         const {body} = request;
         let data;
-        let bankTransfer = new BankTransfer(body.items, body.customer);
+        const customer = {
+            first_name: auth.user.nama,
+            last_name: '',
+            email: auth.user.email,
+        }
+        let bankTransfer = new BankTransfer(body.items, customer);
         switch (body.channel) {
             case "BCA":
                 data = bankTransfer.bca();
