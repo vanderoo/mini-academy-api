@@ -32,7 +32,7 @@ class LoginController {
             await auth.check();
             return response.status(200).send({ message: "Logged in" });
         } catch (error) {
-            return response.status(500).send({ message: "not logged in" });
+            return response.status(401).send({ message: "not logged in" });
         }
     }
 
