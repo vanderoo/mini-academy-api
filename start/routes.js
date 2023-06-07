@@ -26,7 +26,7 @@ Route.group(() => {
 }).prefix("auth");
 
 Route.group(() => {
-  Route.post("/charge", "Payments/IndexController.bankTransfer").middleware(['auth']);
+  Route.post("/charge", "Payments/IndexController.bankTransfer");
   Route.post("/notification/push", 'Midtrans/NotificationController.post');
   Route.post("/cart/:id", "Payments/CartController.addCart")
   Route.get("/cart","Payments/CartController.index");

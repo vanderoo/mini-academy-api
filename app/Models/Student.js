@@ -14,18 +14,14 @@ class Student extends Model {
     static get primaryKey() {
         return 'id_pelajar';
     }
-
-    static boot(){
-        super.boot();
-
-        this.addHook('beforeSave', async (studentInstance) => {
-            if(studentInstance.dirty.password){
-                studentInstance.password = await Hash.make(studentInstance.password);
-            }
-        });
+    
+    static get createdAtColumn() {
+        return false;
     }
 
-
+    static get updatedAtColumn() {
+        return false;
+    }
 
 }
 

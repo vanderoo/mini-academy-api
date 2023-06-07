@@ -1,13 +1,17 @@
 'use strict'
 const Cart = use("App/Models/Cart");
+const Student = use("App/Models/Student");
 
 class CartController {
     async index({auth, response}){
         try {
+            const user = await Student.findBy('username', auth.user.username);
+            const id_pelajar = user.id_pelajar;
+            
             const cart = await Cart.query()
             .with('kelas')
             .with('kelas.pengajar')
-            .where('id_pelajar', auth.user.id_pelajar)
+            .where('id_pelajar', id_pelajar)
             .fetch();
 
             if(!cart){

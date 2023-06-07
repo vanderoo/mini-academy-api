@@ -35,6 +35,14 @@ module.exports = {
     password: 'password'
   },
 
+  sessionPg: {
+    serializer: 'lucid',
+    model: 'App/Models/Pengajar',
+    scheme: 'session',
+    uid: 'username',
+    password: 'password'
+  },
+
   /*
   |--------------------------------------------------------------------------
   | Basic Auth

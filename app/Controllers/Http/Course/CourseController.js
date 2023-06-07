@@ -5,6 +5,7 @@ const Student = use('App/Models/Student')
 const Pendaftaran = use('App/Models/Pendaftaran')
 const Pembayaran = use('App/Models/Pembayaran')
 
+
 class CourseController {
     async courseIndex({ response }) {
         try {
@@ -52,11 +53,14 @@ class CourseController {
 
     async myCourseIndex({auth, response }) {
         try {
+            const user = await Student.findBy('username', auth.user.username);
+            const id_pelajar = user.id_pelajar;
+
             const courses = await Course.query()
                 .select('kelas.*')
                 .innerJoin('pendaftaran', 'kelas.id_kelas', 'pendaftaran.id_kelas')
                 .innerJoin('pembayaran', 'pendaftaran.id_pembayaran', 'pembayaran.id_pembayaran')
-                .where('pendaftaran.id_pelajar', auth.user.id_pelajar)
+                .where('pendaftaran.id_pelajar', id_pelajar)
                 .where('pembayaran.status', 'SUCCESS')
                 .fetch();
             
@@ -72,11 +76,14 @@ class CourseController {
     }
     async waitingPaymentIndex({ auth, response }) {
         try {
+            const user = await Student.findBy('username', auth.user.username);
+            const id_pelajar = user.id_pelajar;
+
             const courses = await Course.query()
                 .select('kelas.*')
                 .innerJoin('pendaftaran', 'kelas.id_kelas', 'pendaftaran.id_kelas')
                 .innerJoin('pembayaran', 'pendaftaran.id_pembayaran', 'pembayaran.id_pembayaran')
-                .where('pendaftaran.id_pelajar', auth.user.id_pelajar)
+                .where('pendaftaran.id_pelajar', id_pelajar)
                 .whereNot('pembayaran.status', 'SUCCESS')
                 .fetch();
 
@@ -88,8 +95,11 @@ class CourseController {
     }
     async notRegisteredIndex({ auth, response }) {
         try {
+            const user = await Student.findBy('username', auth.user.username);
+            const id_pelajar = user.id_pelajar;
+
             const registeredCourses = await Pendaftaran.query()
-                .where('id_pelajar', auth.user.id_pelajar)
+                .where('id_pelajar', id_pelajar)
                 .pluck('id_kelas');
 
             const notRegisteredCourses = await Course.query()

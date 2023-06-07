@@ -2,23 +2,27 @@
 
 const CoreApi = require("../Midtrans/CoreApi");
 const BankTransfer = require("./BankTransfer");
-//const {DateTime } = require('luxon');
 const Pendaftaran = use("App/Models/Pendaftaran");
 const Pembayaran = use("App/Models/Pembayaran");
+const Student = use("App/Models/Student");
 const Database = use('Database');
 
 
 
 class IndexController {
     async bankTransfer({ auth, request, response }) {
-        
+        const user = await Student.findBy('username', auth.user.username);
         const {body} = request;
         let data;
         const customer = {
-            first_name: auth.user.nama,
+            first_name: user.nama,
             last_name: '',
-            email: auth.user.email,
+            email: user.email,
         }
+        console.log(body);
+        console.log(body.items);
+        console.log(body.channel);
+        console.log(customer);
         let bankTransfer = new BankTransfer(body.items, customer);
         switch (body.channel) {
             case "BCA":
@@ -31,13 +35,14 @@ class IndexController {
                 data = bankTransfer.permata();
                 break;
         }
+        console.log(data)
         //return data;
         //return CoreApi.charge(data);
 
         const result = await CoreApi.charge(data);
 
         if (!result) {
-            return response.status(500).send({ message: 'Pesanan gagal dibuat, coba lagi nanti' });
+            return response.status(500).json({ message: 'Pesanan gagal dibuat, coba lagi nanti' });
         }
 
         const trx = await Database.beginTransaction();
@@ -63,7 +68,7 @@ class IndexController {
 
             if (result.status_code !== '201') {
                 await trx.rollback();
-                return response.status(500).send({ message: 'Gagal membuat pesanan, coba lagi nanti' });
+                return response.status(500).json({ message: 'Gagal membuat pesanan, coba lagi nanti' });
             }
 
             await trx.commit();
@@ -74,8 +79,8 @@ class IndexController {
 
         } catch (error) {
             await trx.rollback();
-            console.log("Error: ", error);
-            return response.status(500).send({ message: "Terjadi kesalahan" });
+            //console.log("Error: ", error);
+            return response.status(500).json({ message: "Terjadi kesalahan" });
         }
     }
 }
