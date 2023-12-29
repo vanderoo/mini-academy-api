@@ -3,6 +3,11 @@
 This repository contains the Mini Academy API source code, acting as a bridge between the platform's back-end functionalities and front-end user interfaces. It enables the integration of key features like course management, mentor details, user information, assessments, payment systems, and authentication into various user-facing applications.
 
 ## Usage
+### Database Scheme
+Make sure to adjust the database configuration according to the following schema:
+
+![ERD Mini Academy](https://github.com/vanderoo/mini-academy-api/blob/master/ERD_Mini%20Academy.png)
+
 ### Installation
 
 1. **Clone the Repository:**
